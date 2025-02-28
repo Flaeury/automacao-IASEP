@@ -189,12 +189,13 @@
     <div class="main-container">
         <div class="content">
             <h2>Arquivos Extraídos </h2>
+            <button class="delete-button" onclick="openModal()">Excluir Todos os PDFs</button>
             <ul class="ul-class">
                 {% for file in files %}
                     <li class="li-class">{{ file }}</li>
                 {% endfor %}
             </ul>
-            <button class="delete-button" onclick="openModal()">Excluir Todos os PDFs</button>
+            
         </div>
     </div>
 
