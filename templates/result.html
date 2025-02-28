@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arquivos Enviados</title>
+    <title>Arquivos Extraídos</title>
     <style>
         /* Estilos gerais */
         body {
@@ -68,7 +68,7 @@
             text-align: center;
         }
 
-        /* Lista de arquivos enviados */
+    
         .ul-class-nav {
             list-style: none;
             padding: 0;
@@ -181,14 +181,14 @@
     <nav>
         <ul class="ul-class-nav">
             <li class="li-class-nav"><a href="/">Inicial</a></li>
-            <li class="li-class-nav"><a id="atual" href="/result">Arquivos Enviados</a></li>
+            <li class="li-class-nav"><a id="atual" href="/result">Arquivos Extraídos</a></li>
         </ul>
     </nav>
 
     <!-- Conteúdo principal -->
     <div class="main-container">
         <div class="content">
-            <h1>Arquivos Enviados </h1>
+            <h1>Arquivos Extraídos </h1>
             <ul class="ul-class">
                 {% for file in files %}
                     <li class="li-class">{{ file }}</li>
@@ -216,7 +216,7 @@
             var arquivos = document.getElementsByClassName('li-class');
             var contador = arquivos.length;
             var titulo = document.querySelector('.content h1');
-            titulo.innerHTML = 'Arquivos Enviados (' + contador + ')';
+            titulo.innerHTML = 'Arquivos Extraídos (' + contador + ')';
             if (contador == 0) {
           document.getElementsByClassName('delete-button')[0].style.display = 'none';
             }

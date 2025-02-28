@@ -110,7 +110,6 @@
       margin-top: 20px;
     }
 
-    /* Lista de arquivos enviados */
     ul {
       list-style: none;
       padding: 0;
@@ -209,7 +208,7 @@
   <nav>
     <ul>
       <li><a id="atual" href="/">Inicial</a></li>
-      <li><a href="/result">Arquivos Enviados</a></li>
+      <li><a href="/result">Arquivos Extraídos</a></li>
     </ul>
   </nav>
 
@@ -219,7 +218,7 @@
       <h1>Upload de PDF</h1>
       <form id="pdfForm" action="/upload" method="post" enctype="multipart/form-data">
         <input style="border-style: dashed;" type="file" name="file" accept="application/pdf" multiple>
-        <button type="submit">Enviar PDFs</button>
+        <button type="submit">Extrair PDFs</button>
       </form>
     </div>
     </br></br>
@@ -264,7 +263,7 @@
   </div>
 
   <!-- Toast -->
-  <div id="toast" class="toast">Arquivo enviado com sucesso!</div>
+  <div id="toast" class="toast">Arquivo extraído com sucesso!</div>
 
   <script>
     // Modal de erro
@@ -367,7 +366,7 @@
         event.preventDefault();
         showModal("noFilesModal");
       } else {
-        showToast("PDFs enviados com sucesso!", "success"); // Toast de sucesso
+        showToast("PDFs extraídos com sucesso!", "success"); // Toast de sucesso
       }
     });
 

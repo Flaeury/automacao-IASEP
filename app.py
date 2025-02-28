@@ -138,7 +138,7 @@ def upload_file():
             extracted_data = extract_data_from_pdf(file_path)
             excel_path = os.path.join(app.config['EXCEL_FOLDER'], 'dados.xlsx')
             save_to_excel(extracted_data, excel_path)
-        return render_template('index.html', success_message="Arquivo enviado com sucesso!")
+        return render_template('index.html', success_message="Arquivo extraído com sucesso!")
 
     except Exception as e:
         return render_template('index.html', error_message="Ocorreu um erro ao enviar o arquivo.")
@@ -202,7 +202,6 @@ def delete_all_pdfs():
             except Exception as e:
                 print(f"Erro ao excluir {file_path}: {e}")
 
-    # Redireciona de volta para a página de arquivos enviados
     return redirect(url_for('result'))
 
 
