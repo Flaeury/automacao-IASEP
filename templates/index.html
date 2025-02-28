@@ -69,10 +69,10 @@
 
     /* Estilo dos inputs de arquivo */
     input[type="file"] {
-      margin: 10px 0;
-      width: 100%;
+      margin: 8px 0;
+      width: 94%;
       padding: 10px;
-      border: 1px solid #ddd;
+      border: 1px solid #cacaca;
       border-radius: 5px;
       background: #f9f9f9;
     }
@@ -171,7 +171,6 @@
     /* Estilo do Toast */
     .toast {
       position: fixed;
-      top: 20px; /* Alterar para topo */
       right: 20px; /* Alterar para o lado direito */
       color: white;
       padding: 10px 20px;
@@ -186,6 +185,7 @@
 
     .toast.show {
       display: flex;
+      top: 75px; /* Alterar para topo */
       opacity: 1;
     }
 
@@ -215,10 +215,10 @@
   <!-- Conteúdo principal -->
   <div class="main-container">
     <div class="content">
-      <h1>Upload de PDF</h1>
+      <h2>Upload de PDF</h2>
       <form id="pdfForm" action="/upload" method="post" enctype="multipart/form-data">
         <input style="border-style: dashed;" type="file" name="file" accept="application/pdf" multiple>
-        <button type="submit">Extrair PDFs</button>
+        <button type="submit">Extrair</button>
       </form>
     </div>
     </br></br>
@@ -226,13 +226,13 @@
       <h2>Opções de Tabela Excel</h2>
       <form id="excelForm" action="/upload_excel" method="post" enctype="multipart/form-data">
         <input style="border-style: dashed;" type="file" name="excel_file" accept=".xlsx">
-        <button type="submit">Carregar Tabela Excel</button>
+        <button type="submit">Carregar Tabela</button>
       </form>
       <form action="/download_excel" method="get">
-        <button type="submit">Baixar Tabela Excel</button>
+        <button type="submit">Baixar Tabela</button>
       </form>
       <form action="/create_excel" method="post">
-        <button type="button" id="openModalBtn">Criar Nova Tabela Excel</button>
+        <button type="button" id="openModalBtn">Criar Nova Tabela</button>
       </form>
 
       {% if error %}

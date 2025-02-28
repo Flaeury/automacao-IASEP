@@ -188,7 +188,7 @@
     <!-- Conteúdo principal -->
     <div class="main-container">
         <div class="content">
-            <h1>Arquivos Extraídos </h1>
+            <h2>Arquivos Extraídos </h2>
             <ul class="ul-class">
                 {% for file in files %}
                     <li class="li-class">{{ file }}</li>
@@ -215,7 +215,7 @@
         function counterArquivos() {
             var arquivos = document.getElementsByClassName('li-class');
             var contador = arquivos.length;
-            var titulo = document.querySelector('.content h1');
+            var titulo = document.querySelector('.content h2');
             titulo.innerHTML = 'Arquivos Extraídos (' + contador + ')';
             if (contador == 0) {
           document.getElementsByClassName('delete-button')[0].style.display = 'none';
