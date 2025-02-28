@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload de PDF</title>
+    <style>
+        /* Estilos gerais */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        /* Barra de navegação */
+        nav {
+            background-color: #333;
+            padding: 10px 20px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 15px;
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav ul li a {
+            color: white;
+            font-weight: 500;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 6px 15px;
+            /* background-color: #f4f4f4; */
+            border-radius: 3px;
+         
+        }
+
+        #atual {
+            background-color: #61b561;
+            color: white;
+            border-radius: 5px;
+        }
+    
+        /* Container principal */
+        .main-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 60px); /* Altura total menos a altura do nav */
+            padding: 20px;
+        }
+
+        .content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        /* Estilo dos inputs de arquivo */
+        input[type="file"] {
+            margin: 10px 0;
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #f9f9f9;
+        }
+
+
+        /* Estilo dos botões */
+        button {
+            background-color: #6bc56b; /* Verde pastel */
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
+            margin: 5px 0;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #61b561; /* Verde pastel mais escuro no hover */
+        }
+
+        /* Títulos */
+        h1, h2 {
+            color: #333;
+            margin: 0 0 15px 0;
+        }
+
+        h1 {
+            font-size: 24px;
+        }
+
+        h2 {
+            font-size: 20px;
+            margin-top: 20px;
+        }
+
+        /* Lista de arquivos enviados */
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            /* background: #fff; */
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            /* box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); */
+        }
+
+        /* Mensagens de erro */
+        .error-message {
+            color: #ff6b6b; /* Vermelho pastel */
+            margin-top: 10px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra de navegação -->
+    <nav>
+        <ul>
+            <li><a id="atual" href="/">Inicial</a></li>
+            <li><a href="/result">Arquivos Enviados</a></li>
+        </ul>
+    </nav>
+
+    <!-- Conteúdo principal -->
+    <div class="main-container">
+        <div class="content">
+            <h1>Upload de PDF</h1>
+            <form action="/upload" method="post" enctype="multipart/form-data">
+                <input style="border-style: dashed;"  type="file" name="file" accept="application/pdf" multiple>
+                <button type="submit">Enviar PDFs</button>
+            </form>
+
+          </br>
+
+            <h2>Opções de Tabela Excel</h2>
+            <form action="/upload_excel" method="post" enctype="multipart/form-data">
+                <input style="border-style: dashed;" type="file" name="excel_file" accept=".xlsx">
+                <button type="submit">Carregar Tabela Excel</button>
+            </form>
+            <form action="/download_excel" method="get">
+                <button type="submit">Baixar Tabela Excel</button>
+            </form>
+            <form action="/create_excel" method="post">
+                <button type="submit">Criar Nova Tabela Excel</button>
+            </form>
+            {% if error %}
+                <div class="error-message">{{ error }}</div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
