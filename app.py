@@ -4,6 +4,9 @@ import PyPDF2
 import pandas as pd
 import gc
 from flask import Flask, request, render_template, redirect, url_for, send_file
+import openpyxl
+from openpyxl.utils.dataframe import dataframe_to_rows
+
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'
@@ -122,18 +125,23 @@ def result():
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
-    if 'file' not in request.files:
-        return redirect(request.url)
-    files = request.files.getlist('file')
-    for file in files:
-        if file.filename == '' or not file.filename.endswith('.pdf'):
-            continue
-        file_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
-        file.save(file_path)
-        extracted_data = extract_data_from_pdf(file_path)
-        excel_path = os.path.join(app.config['EXCEL_FOLDER'], 'dados.xlsx')
-        save_to_excel(extracted_data, excel_path)
-    return redirect(url_for('index'))
+    try:
+        if 'file' not in request.files:
+            return render_template('index.html', error_message="Nenhum arquivo selecionado.")
+        files = request.files.getlist('file')
+        for file in files:
+            if file.filename == '' or not file.filename.endswith('.pdf'):
+                return render_template('index.html', error_message="Formato de arquivo inválido.")
+            file_path = os.path.join(
+                app.config['UPLOAD_FOLDER'], file.filename)
+            file.save(file_path)
+            extracted_data = extract_data_from_pdf(file_path)
+            excel_path = os.path.join(app.config['EXCEL_FOLDER'], 'dados.xlsx')
+            save_to_excel(extracted_data, excel_path)
+        return render_template('index.html', success_message="Arquivo enviado com sucesso!")
+
+    except Exception as e:
+        return render_template('index.html', error_message="Ocorreu um erro ao enviar o arquivo.")
 
 
 @app.route('/upload_excel', methods=['POST'])
@@ -176,6 +184,26 @@ def create_excel():
     # Reseta o DataFrame global
     global_df = None
     return redirect(url_for('index'))
+
+
+@app.route('/delete_all_pdfs')
+def delete_all_pdfs():
+    # Diretório onde os PDFs estão armazenados
+    upload_folder = app.config['UPLOAD_FOLDER']
+
+    # Verifica se o diretório existe
+    if os.path.exists(upload_folder):
+        # Remove todos os arquivos no diretório
+        for file_name in os.listdir(upload_folder):
+            file_path = os.path.join(upload_folder, file_name)
+            try:
+                if os.path.isfile(file_path):
+                    os.unlink(file_path)
+            except Exception as e:
+                print(f"Erro ao excluir {file_path}: {e}")
+
+    # Redireciona de volta para a página de arquivos enviados
+    return redirect(url_for('result'))
 
 
 if __name__ == '__main__':

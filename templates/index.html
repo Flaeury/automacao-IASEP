@@ -1,175 +1,389 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload de PDF</title>
-    <style>
-        /* Estilos gerais */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload de PDF</title>
+  <style>
+    /* Estilos gerais */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
 
-        /* Barra de navegação */
-        nav {
-            background-color: #333;
-            padding: 10px 20px;
-            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-        }
+    /* Barra de navegação */
+    nav {
+      background-color: #4f78b0;
+      padding: 10px 20px;
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    }
 
-        nav ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            gap: 15px;
-        }
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      gap: 15px;
+    }
 
-        nav ul li {
-            display: inline;
-        }
+    nav ul li {
+      display: inline;
+    }
 
-        nav ul li a {
-            color: white;
-            font-weight: 500;
-            text-decoration: none;
-            font-size: 16px;
-            padding: 6px 15px;
-            /* background-color: #f4f4f4; */
-            border-radius: 3px;
-         
-        }
+    nav ul li a {
+      color: white;
+      font-weight: 500;
+      text-decoration: none;
+      font-size: 16px;
+      padding: 6px 15px;
+      border-radius: 3px;
+    }
 
-        #atual {
-            background-color: #61b561;
-            color: white;
-            border-radius: 5px;
-        }
-    
-        /* Container principal */
-        .main-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: calc(100vh - 60px); /* Altura total menos a altura do nav */
-            padding: 20px;
-        }
+    #atual {
+      background-color: #ffffff;
+      color: #4f78b0;
+      border-radius: 5px;
+    }
 
-        .content {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-        }
+    /* Container principal */
+    .main-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      min-height: calc(100vh - 60px); /* Altura total menos a altura do nav */
+    }
 
-        /* Estilo dos inputs de arquivo */
-        input[type="file"] {
-            margin: 10px 0;
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background: #f9f9f9;
-        }
+    .content {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+    }
 
+    /* Estilo dos inputs de arquivo */
+    input[type="file"] {
+      margin: 10px 0;
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background: #f9f9f9;
+    }
 
-        /* Estilo dos botões */
-        button {
-            background-color: #6bc56b; /* Verde pastel */
-            color: white;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            border-radius: 5px;
-            width: 100%;
-            margin: 5px 0;
-            font-size: 14px;
-            transition: background-color 0.3s ease;
-        }
+    /* Estilo dos botões */
+    button {
+      background-color: #6d96cf; /* Verde pastel */
+      color: white;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      border-radius: 5px;
+      width: 100%;
+      margin: 5px 0;
+      font-size: 14px;
+      transition: background-color 0.3s ease;
+    }
 
-        button:hover {
-            background-color: #61b561; /* Verde pastel mais escuro no hover */
-        }
+    button:hover {
+      background-color: #5781bb; /* Verde pastel mais escuro no hover */
+    }
 
-        /* Títulos */
-        h1, h2 {
-            color: #333;
-            margin: 0 0 15px 0;
-        }
+    /* Títulos */
+    h1, h2 {
+      color: #333;
+      margin: 0 0 15px 0;
+    }
 
-        h1 {
-            font-size: 24px;
-        }
+    h1 {
+      font-size: 24px;
+    }
 
-        h2 {
-            font-size: 20px;
-            margin-top: 20px;
-        }
+    h2 {
+      font-size: 20px;
+      margin-top: 20px;
+    }
 
-        /* Lista de arquivos enviados */
-        ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
+    /* Lista de arquivos enviados */
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
 
-        li {
-            /* background: #fff; */
-            padding: 10px;
-            margin: 5px 0;
-            border-radius: 5px;
-            /* box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); */
-        }
+    li {
+      padding: 10px;
+      margin: 5px 0;
+      border-radius: 5px;
+    }
 
-        /* Mensagens de erro */
-        .error-message {
-            color: #ff6b6b; /* Vermelho pastel */
-            margin-top: 10px;
-            font-size: 14px;
-        }
-    </style>
+    /* Mensagens de erro */
+    .error-message {
+      color: #ff6b6b; /* Vermelho pastel */
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    /* Estilo do modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto;
+      padding: 15px;
+      border: 1px solid #888;
+      width: 80%;
+      max-width: 332px;
+      text-align: center;
+      border-radius: 8px;
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+      /* color: black; */
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    /* Toast */
+    /* Estilo do Toast */
+    .toast {
+      position: fixed;
+      top: 20px; /* Alterar para topo */
+      right: 20px; /* Alterar para o lado direito */
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      display: none;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      z-index: 9999;
+      display: flex; /* Para adicionar os ícones */
+      align-items: center; /* Alinha o conteúdo verticalmente */
+    }
+
+    .toast.show {
+      display: flex;
+      opacity: 1;
+    }
+
+    .toast .icon {
+      margin-right: 10px; /* Espaço entre o ícone e o texto */
+    }
+
+    .toast.success {
+      background-color: green;
+    }
+
+    .toast.error {
+      background-color: red;
+    }
+
+  </style>
 </head>
 <body>
-    <!-- Barra de navegação -->
-    <nav>
-        <ul>
-            <li><a id="atual" href="/">Inicial</a></li>
-            <li><a href="/result">Arquivos Enviados</a></li>
-        </ul>
-    </nav>
+  <!-- Barra de navegação -->
+  <nav>
+    <ul>
+      <li><a id="atual" href="/">Inicial</a></li>
+      <li><a href="/result">Arquivos Enviados</a></li>
+    </ul>
+  </nav>
 
-    <!-- Conteúdo principal -->
-    <div class="main-container">
-        <div class="content">
-            <h1>Upload de PDF</h1>
-            <form action="/upload" method="post" enctype="multipart/form-data">
-                <input style="border-style: dashed;"  type="file" name="file" accept="application/pdf" multiple>
-                <button type="submit">Enviar PDFs</button>
-            </form>
-
-          </br>
-
-            <h2>Opções de Tabela Excel</h2>
-            <form action="/upload_excel" method="post" enctype="multipart/form-data">
-                <input style="border-style: dashed;" type="file" name="excel_file" accept=".xlsx">
-                <button type="submit">Carregar Tabela Excel</button>
-            </form>
-            <form action="/download_excel" method="get">
-                <button type="submit">Baixar Tabela Excel</button>
-            </form>
-            <form action="/create_excel" method="post">
-                <button type="submit">Criar Nova Tabela Excel</button>
-            </form>
-            {% if error %}
-                <div class="error-message">{{ error }}</div>
-            {% endif %}
-        </div>
+  <!-- Conteúdo principal -->
+  <div class="main-container">
+    <div class="content">
+      <h1>Upload de PDF</h1>
+      <form id="pdfForm" action="/upload" method="post" enctype="multipart/form-data">
+        <input style="border-style: dashed;" type="file" name="file" accept="application/pdf" multiple>
+        <button type="submit">Enviar PDFs</button>
+      </form>
     </div>
+    </br></br>
+    <div class="content">
+      <h2>Opções de Tabela Excel</h2>
+      <form id="excelForm" action="/upload_excel" method="post" enctype="multipart/form-data">
+        <input style="border-style: dashed;" type="file" name="excel_file" accept=".xlsx">
+        <button type="submit">Carregar Tabela Excel</button>
+      </form>
+      <form action="/download_excel" method="get">
+        <button type="submit">Baixar Tabela Excel</button>
+      </form>
+      <form action="/create_excel" method="post">
+        <button type="button" id="openModalBtn">Criar Nova Tabela Excel</button>
+      </form>
+
+      {% if error %}
+        <div class="error-message">{{ error }}</div>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Modal de erro (Não há arquivos) -->
+  <div id="noFilesModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <p>Adicione um arquivo!</p>
+    </div>
+  </div>
+
+  <!-- Modal de Confirmação (Criar Nova Tabela Excel) -->
+  <div id="confirmationModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <p>Se uma tabela estiver no banco, ela será apagada e substituída</p>
+      <p>Deseja continuar?</p>
+      <form action="/create_excel" method="post">
+        <button style="background-color: #77dd77;" type="submit">Sim, criar tabela</button>
+      </form>
+      <button style="background-color: #ff6b6b;" id="cancelBtn">Cancelar</button>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast">Arquivo enviado com sucesso!</div>
+
+  <script>
+    // Modal de erro
+    document.getElementById('pdfForm').addEventListener('submit', function(event) {
+      var fileInput = this.querySelector('input[type="file"]');
+      if (!fileInput.files.length) {
+        event.preventDefault();
+        showModal("noFilesModal");
+      }
+    });
+
+
+    // Função para exibir os modais
+    function showModal(modalId) {
+      var modal = document.getElementById(modalId);
+      var span = modal.querySelector(".close");
+
+      modal.style.display = "block";
+
+      span.onclick = function() {
+        modal.style.display = "none";
+      }
+
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      }
+    }
+
+    const openModalBtn = document.getElementById("openModalBtn");
+    const confirmationModal = document.getElementById("confirmationModal");
+    const cancelBtn = document.getElementById("cancelBtn");
+
+    openModalBtn.onclick = function() {
+      confirmationModal.style.display = "block";
+    }
+
+    const closeModalBtn = confirmationModal.querySelector(".close");
+
+    closeModalBtn.onclick = function() {
+      confirmationModal.style.display = "none";
+    }
+
+    cancelBtn.onclick = function() {
+      confirmationModal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+      if (event.target == confirmationModal) {
+        confirmationModal.style.display = "none";
+      }
+    }
+
+    // Exibir o Toast
+    function showToast(message, type) {
+      // Criando o toast
+      var toast = document.createElement("div");
+      toast.classList.add("toast", "show", type);
+
+      // Criando o ícone
+      var icon = document.createElement("span");
+      icon.classList.add("icon");
+
+      if (type === "success") {
+        icon.textContent = "✔"; // Ícone de "correto"
+      } else {
+        icon.textContent = "✖"; // Ícone de "X"
+      }
+
+      // Criando a mensagem
+      var messageText = document.createElement("span");
+      messageText.textContent = message;
+
+      // Adicionando o ícone e a mensagem ao toast
+      toast.appendChild(icon);
+      toast.appendChild(messageText);
+
+      // Adicionando o toast à página
+      document.body.appendChild(toast);
+
+      setTimeout(function() {
+        toast.style.opacity = 1;
+      }, 0);
+
+      setTimeout(function() {
+        toast.style.opacity = 0;
+        setTimeout(function() {
+          toast.remove();
+        }, 0);
+      }, 5000); 
+
+    }
+
+    
+    // Exemplo de exibição do toast após o envio de PDF
+    document.getElementById('pdfForm').addEventListener('submit', function(event) {
+      var fileInput = this.querySelector('input[type="file"]');
+      if (!fileInput.files.length) {
+        event.preventDefault();
+        showModal("noFilesModal");
+      } else {
+        showToast("PDFs enviados com sucesso!", "success"); // Toast de sucesso
+      }
+    });
+
+    // Exemplo de exibição do toast após o envio do Excel
+    document.getElementById('excelForm').addEventListener('submit', function(event) {
+      var fileInput = this.querySelector('input[type="file"]');
+      if (!fileInput.files.length) {
+        event.preventDefault();
+        showModal("noFilesModal");
+      } else {
+        showToast("Tabela Excel carregada com sucesso!", "success"); // Toast de sucesso
+      }
+    });
+
+
+
+  </script>
 </body>
 </html>
